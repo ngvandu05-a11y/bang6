@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đề Kiểm Tra Bảng Nhân và Chia 6 - Cẩm Tiên</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        norway: {
+                            50: '#f0f7fc',
+                            100: '#dbeff9',
+                            500: '#2A6F97',
+                            600: '#014F86',
+                            700: '#013A63',
+                            800: '#012A4A',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .math-fraction {
+            display: inline-flex;
+            flex-direction: column;
+            vertical-align: middle;
+            text-align: center;
+            font-size: 0.95em;
+            margin: 0 4px;
+            padding: 0 2px;
+        }
+        .math-numerator {
+            border-bottom: 1.5px solid currentColor;
+            padding-bottom: 1px;
+        }
+        .math-denominator {
+            padding-top: 1px;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-norway-50 text-gray-800 font-sans min-h-screen flex flex-col justify-between">
+
+    <header class="bg-norway-700 text-white shadow-md sticky top-0 z-40">
+        <div class="max-w-5xl mx-auto px-4 py-3 flex flex-wrap justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-norway-500 p-2 rounded-xl text-white font-bold text-xl shadow">6×</div>
+                <div>
+                    <h1 class="text-lg md:text-xl font-bold tracking-wide">Kiểm tra bảng nhân và chia 6</h1>
+                    <p class="text-xs text-norway-100">Học sinh: <span class="font-bold underline text-yellow-300">Cẩm Tiên</span></p>
+                </div>
+            </div>
+            <div id="timer-container" class="hidden items-center bg-norway-800 px-4 py-2 rounded-xl border border-norway-500 shadow-inner">
+                <svg class="w-5 h-5 mr-2 text-yellow-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-xs text-norway-100 mr-1">Thời gian:</span>
+                <span id="timer-display" class="font-mono font-bold text-yellow-300 text-lg">35:00</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-4xl w-full mx-auto p-4 md:p-6 my-4">
+        
+        <!-- Screen 1: Welcome / Introduction -->
+        <div id="screen-welcome" class="bg-white rounded-2xl shadow-xl p-6 md:p-10 border border-norway-100 fade-in">
+            <div class="text-center max-w-2xl mx-auto">
+                <div class="inline-block bg-norway-100 text-norway-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
+                    📚 Môn Toán Lớp 3
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-norway-800 mb-4">
+                    ĐỀ KIỂM TRA BẢNG NHÂN VÀ CHIA 6
+                </h2>
+                <p class="text-gray-600 mb-8 text-base">
+                   Chúc <span class="font-bold text-norway-700">Cẩm Tiên</span> làm bài thật tốt!
+                </p>
+
+                <div class="bg-norway-50 rounded-2xl p-6 border border-norway-200 text-left mb-8 shadow-sm">
+                    <h3 class="font-bold text-norway-700 text-lg mb-3 flex items-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Thông tin bài kiểm tra:
+                    </h3>
+                    <ul class="space-y-2 text-gray-700 text-sm md:text-base">
+                        <li class="flex justify-between border-b border-gray-200 pb-2">
+                            <span class="font-medium text-gray-500">Thí sinh:</span>
+                            <span class="font-bold text-norway-800">Cẩm Tiên</span>
+                        </li>
+                        <li class="flex justify-between border-b border-gray-200 pb-2">
+                            <span class="font-medium text-gray-500">Nội dung:</span>
+                            <span>Bảng nhân 6, bảng chia 6, biểu thức và toán đố có lời văn</span>
+                        </li>
+                        <li class="flex justify-between border-b border-gray-200 pb-2">
+                            <span class="font-medium text-gray-500">Tổng số câu hỏi:</span>
+                            <span class="font-bold text-norway-700">47 câu hỏi</span>
+                        </li>
+                        <li class="flex justify-between">
+                            <span class="font-medium text-gray-500">Thời gian làm bài:</span>
+                            <span class="font-bold text-red-600">35 phút</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <button onclick="startQuiz()" class="w-full md:w-auto px-8 py-4 bg-norway-600 hover:bg-norway-700 text-white font-bold text-lg rounded-xl shadow-lg hover:shadow-xl transition transform active:scale-95 flex items-center justify-center mx-auto">
+                    <span>BẮT ĐẦU LÀM BÀI</span>
+                    <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Screen 2: Quiz taking interface (All questions rendered vertically) -->
+        <div id="screen-quiz" class="hidden space-y-6">
+            <div class="bg-white rounded-2xl shadow-md p-4 sticky top-16 z-30 border border-norway-100 flex justify-between items-center">
+                <div class="text-sm font-medium text-gray-600">
+                    Danh sách toàn bộ đề (<span id="total-questions-count">47</span> câu)
+                </div>
+                <button onclick="confirmEarlySubmit()" class="px-6 py-2.5 bg-green-600 hover:bg-green-700 text-white text-sm font-bold rounded-xl shadow transition flex items-center">
+                    <span>Nộp Bài</span>
+                    <svg class="w-5 h-5 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+            </div>
+
+            <!-- Container for all questions -->
+            <div id="all-questions-container" class="space-y-6">
+                <!-- Dynamic questions injected here -->
+            </div>
+
+            <!-- Bottom Submit Button -->
+            <div class="flex justify-center pt-4 pb-8">
+                <button onclick="confirmEarlySubmit()" class="px-10 py-4 bg-green-600 hover:bg-green-700 text-white font-bold text-lg rounded-xl shadow-lg transition flex items-center">
+                    <span>NỘP BÀI KẾT THÚC</span>
+                    <svg class="w-6 h-6 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Screen 3: Results Summary -->
+        <div id="screen-result" class="hidden bg-white rounded-2xl shadow-xl p-6 md:p-10 border border-norway-100 fade-in space-y-8">
+            <div class="text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 bg-norway-100 text-norway-700 rounded-full text-2xl font-bold mb-4 shadow">
+                    🏆
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-norway-800 mb-2">
+                    KẾT QUẢ BÀI KIỂM TRA
+                </h2>
+                <p class="text-gray-600 text-sm md:text-base">
+                    Thí sinh: <span class="font-bold text-norway-700 text-lg">Cẩm Tiên</span>
+                </p>
+            </div>
+
+            <!-- Highlighted Score Card -->
+            <div class="bg-gradient-to-br from-norway-600 to-norway-800 text-white rounded-2xl p-6 md:p-8 text-center shadow-lg relative overflow-hidden">
+                <div class="absolute -right-10 -bottom-10 opacity-10 text-9xl font-bold">10</div>
+                <p class="text-norway-100 text-sm md:text-base uppercase tracking-wider font-semibold mb-1">TỔNG ĐIỂM</p>
+                <div id="final-score-display" class="text-5xl md:text-6xl font-extrabold text-yellow-300 my-2">
+                    0.0
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-norway-50 p-4 rounded-xl border border-norway-100 text-center">
+                    <p class="text-xs text-gray-500 font-medium">Số Câu Đúng</p>
+                    <p id="stat-correct" class="text-xl font-bold text-green-600 mt-1">0</p>
+                </div>
+                <div class="bg-norway-50 p-4 rounded-xl border border-norway-100 text-center">
+                    <p class="text-xs text-gray-500 font-medium">Số Câu Sai</p>
+                    <p id="stat-incorrect" class="text-xl font-bold text-red-500 mt-1">0</p>
+                </div>
+                <div class="bg-norway-50 p-4 rounded-xl border border-norway-100 text-center">
+                    <p class="text-xs text-gray-500 font-medium">Thời Gian Vào</p>
+                    <p id="stat-starttime" class="text-sm font-bold text-gray-700 mt-1">-</p>
+                </div>
+                <div class="bg-norway-50 p-4 rounded-xl border border-norway-100 text-center">
+                    <p class="text-xs text-gray-500 font-medium">Thời Gian Làm Bài</p>
+                    <p id="stat-duration" class="text-sm font-bold text-gray-700 mt-1">-</p>
+                </div>
+            </div>
+
+            <!-- Detailed History Section -->
+            <div class="space-y-4 pt-4 border-t border-gray-200">
+                <h3 class="text-lg font-bold text-norway-800 flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-norway-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                    Lịch Sử Bài Làm Chi Tiết
+                </h3>
+                <div id="history-container" class="space-y-4 max-h-[500px] overflow-y-auto pr-2">
+                    <!-- Dynamic history items -->
+                </div>
+            </div>
+
+            <div class="text-center pt-4">
+                <button onclick="location.reload()" class="px-8 py-3 bg-norway-600 hover:bg-norway-700 text-white font-bold rounded-xl shadow transition">
+                    LÀM LẠI
+                </button>
+            </div>
+        </div>
+
+    </main>
+
+    <div id="confirm-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-norway-100 fade-in text-center space-y-4">
+            <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-full flex items-center justify-center mx-auto text-2xl font-bold shadow-inner">
+                ⚠️
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">Xác Nhận Nộp Bài</h3>
+            <p class="text-gray-600 text-sm">
+                Cẩm Tiên có chắc chắn muốn nộp bài chưa? Bạn sẽ không thể thay đổi câu trả lời sau khi nộp.
+            </p>
+            <div class="flex space-x-3 pt-2">
+                <button onclick="closeConfirmModal()" class="flex-1 py-2.5 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-xl transition">
+                    Kiểm tra lại
+                </button>
+                <button onclick="submitQuiz()" class="flex-1 py-2.5 bg-norway-600 hover:bg-norway-700 text-white font-semibold rounded-xl shadow transition">
+                    Chắc chắn nộp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 py-4 text-center text-xs text-gray-500">
+        <p>Hệ thống kiểm tra trực tuyến dành riêng cho học sinh <span class="font-semibold text-norway-700">Cẩm Tiên</span> &copy; 2026</p>
+    </footer>
+
+    <script>
+        // Data Bank of 47 questions[cite: 1]
+        const rawQuestions = [
+            {
+                id: 1,
+                type: "mc",
+                question: "Tích của 6 và 5 là:",
+                options: ["11", "30", "36", "25"],
+                correct: "30",
+                svgType: "multiplication",
+                solution: "6 × 5 = 30"
+            },
+            {
+                id: 2,
+                type: "mc",
+                question: "Thương của 48 và 6 là:",
+                options: ["8", "7", "9", "6"],
+                correct: "8",
+                svgType: "division",
+                solution: "48 : 6 = 8"
+            },
+            {
+                id: 3,
+                type: "mc",
+                question: "Số thích hợp điền vào chỗ chấm trong dãy 6, 12, 18, ....., 30 là:",
+                options: ["20", "22", "24", "26"],
+                correct: "24",
+                svgType: "sequence",
+                solution: "Dãy số đếm thêm 6: 6, 12, 18, 24, 30."
+            },
+            {
+                id: 4,
+                type: "mc",
+                question: "Giá trị của biểu thức 6 × 5 + 10 là:",
+                options: ["30", "40", "25", "50"],
+                correct: "40",
+                svgType: "expression",
+                solution: "6 × 5 + 10 = 30 + 10 = 40"
+            },
+            {
+                id: 5,
+                type: "mc",
+                question: "Điền dấu thích hợp: 6 × 6 ..... 4 × 9.",
+                options: [">", "<", "=", "Không so sánh được"],
+                correct: "=",
+                svgType: "compare",
+                solution: "6 × 6 = 36 và 4 × 9 = 36. Vậy 36 = 36."
+            },
+            {
+                id: 6,
+                type: "mc",
+                question: "Mỗi lọ hoa cần 6 bông hoa. Hỏi 8 lọ hoa như thế cần bao nhiêu bông hoa?",
+                options: ["42 bông", "48 bông", "54 bông", "40 bông"],
+                correct: "48 bông",
+                svgType: "flowers",
+                solution: "Số bông hoa cần dùng là: 6 × 8 = 48 (bông)."
+            },
+            {
+                id: 7,
+                type: "input",
+                question: "Tìm y, biết: y × 6 = 36 + 18. Giá trị của y là:",
+                correct: "9",
+                svgType: "equation",
+                solution: "y × 6 = 54 => y = 54 : 6 => y = 9"
+            },
+            {
+                id: 8,
+                type: "mc",
+                question: "Một cuộn dây điện dài 50 m. Người ta cắt đi 6 đoạn, mỗi đoạn dài 6 m. Hỏi cuộn dây điện còn lại bao nhiêu mét?",
+                options: ["14 m", "36 m", "24 m", "16 m"],
+                correct: "14 m",
+                svgType: "wire",
+                solution: "Độ dài dây bị cắt là 6 × 6 = 36 (m). Cuộn dây còn lại 50 - 36 = 14 (m)."
+            },
+            {
+                id: 9,
+                type: "input",
+                question: "Có 60 kg gạo đóng vào các túi, mỗi túi 6 kg. Người ta đã bán đi 4 túi. Hỏi còn lại bao nhiêu túi gạo?",
+                correct: "6",
+                svgType: "rice",
+                solution: "Tổng số túi gạo là 60 : 6 = 10 (túi). Số túi còn lại là 10 - 4 = 6 (túi)."
+            },
+            {
+                id: 10,
+                type: "mc",
+                question: "Lan mua 6 quyển vở hết 48 nghìn đồng. Mai mua 4 quyển vở cùng loại. Hỏi Mai phải trả bao nhiêu nghìn đồng?",
+                options: ["32 nghìn đồng", "24 nghìn đồng", "36 nghìn đồng", "28 nghìn đồng"],
+                correct: "32 nghìn đồng",
+                svgType: "books",
+                solution: "Giá tiền 1 quyển vở là 48 : 6 = 8 (nghìn đồng). Mai trả 8 × 4 = 32 (nghìn đồng)."
+            },
+            {
+                id: 11,
+                type: "input",
+                question: "Một thùng chứa 50 lít nước mắm. Người ta múc ra 6 ca, mỗi ca chứa 3 lít. Hỏi trong thùng còn lại bao nhiêu lít nước mắm?",
+                correct: "32",
+                svgType: "water",
+                solution: "Số lít múc ra là: 3 × 6 = 18 (l). Số lít còn lại là: 50 - 18 = 32 (l)."
+            },
+            {
+                id: 12,
+                type: "mc",
+                question: 'Một cửa hàng nhập về 54 kg đường. Cửa hàng bán đi <span class="math-fraction"><span class="math-numerator">1</span><span class="math-denominator">6</span></span> số đường đó. Hỏi cửa hàng đã bán bao nhiêu ki-lô-gam đường?',
+                options: ["9 kg", "45 kg", "6 kg", "8 kg"],
+                correct: "9 kg",
+                svgType: "sugar",
+                solution: "Số kg đường đã bán là: 54 : 6 = 9 (kg)."
+            },
+            {
+                id: 13,
+                type: "input",
+                question: "Nhà An nuôi 6 con gà, nhà Bình nuôi số gà gấp 5 lần nhà An. Hỏi cả hai nhà nuôi tất cả bao nhiêu con gà?",
+                correct: "36",
+                svgType: "chicken",
+                solution: "Số gà nhà Bình là 6 × 5 = 30 (con). Cả hai nhà nuôi 6 + 30 = 36 (con)."
+            },
+            {
+                id: 14,
+                type: "input",
+                question: 'Bác Hùng có 48 quả táo. Bác biếu ông bà <span class="math-fraction"><span class="math-numerator">1</span><span class="math-denominator">6</span></span> số táo, số còn lại chia đều cho 5 cháu. Mỗi cháu nhận được bao nhiêu quả táo?',
+                correct: "8",
+                svgType: "apples",
+                solution: "Biếu ông bà 48 : 6 = 8 (quả). Còn lại 40 quả. Mỗi cháu nhận 40 : 5 = 8 (quả)."
+            },
+            {
+                id: 15,
+                type: "mc",
+                question: "Giá trị của biểu thức 6 × 3 + 12 là:",
+                options: ["30", "24", "18", "36"],
+                correct: "30",
+                svgType: "expression",
+                solution: "6 × 3 + 12 = 18 + 12 = 30."
+            },
+            {
+                id: 16,
+                type: "mc",
+                question: "Giá trị của biểu thức 54 : 6 - 4 là:",
+                options: ["4", "5", "6", "9"],
+                correct: "5",
+                svgType: "expression",
+                solution: "54 : 6 - 4 = 9 - 4 = 5."
+            },
+            {
+                id: 17,
+                type: "mc",
+                question: "Mỗi túi chứa 6 kg gạo. Hỏi 7 túi như thế chứa bao nhiêu ki-lô-gam gạo?",
+                options: ["36 kg", "42 kg", "48 kg", "13 kg"],
+                correct: "42 kg",
+                svgType: "rice",
+                solution: "6 × 7 = 42 (kg)."
+            },
+            {
+                id: 18,
+                type: "truefalse",
+                question: "Gấp 6 lên 4 lần ta được 24.",
+                options: ["Đúng", "Sai"],
+                correct: "Đúng",
+                svgType: "truefalse",
+                solution: "6 × 4 = 24. Phát biểu đúng."
+            },
+            {
+                id: 19,
+                type: "truefalse",
+                question: "Giảm 30 đi 6 lần ta được 6.",
+                options: ["Đúng", "Sai"],
+                correct: "Sai",
+                svgType: "truefalse",
+                solution: "30 : 6 = 5, không phải 6. Phát biểu sai."
+            },
+            {
+                id: 20,
+                type: "truefalse",
+                question: "6 × 8 - 8 = 40.",
+                options: ["Đúng", "Sai"],
+                correct: "Đúng",
+                svgType: "truefalse",
+                solution: "48 - 8 = 40. Phát biểu đúng."
+            },
+            {
+                id: 21,
+                type: "truefalse",
+                question: "24 : 6 × 2 = 2.",
+                options: ["Đúng", "Sai"],
+                correct: "Sai",
+                svgType: "truefalse",
+                solution: "24 : 6 × 2 = 4 × 2 = 8, không phải 2. Phát biểu sai."
+            },
+            {
+                id: 22,
+                type: "input",
+                question: "Tìm <i>x</i>, biết: <i>x</i> : 6 = 9. Giá trị của<i>x</i> là:",
+                correct: "54",
+                svgType: "equation",
+                solution: "x = 9 × 6 = 54."
+            },
+            {
+                id: 23,
+                type: "input",
+                question: "Tìm y, biết: y × 6 = 48. Giá trị của y là:",
+                correct: "8",
+                svgType: "equation",
+                solution: "y = 48 : 6 = 8."
+            },
+            {
+                id: 24,
+                type: "input",
+                question: "6 <i>l</i> × 9 = ..... <i>l</i>. Số thích hợp điền vào chỗ chấm là:",
+                correct: "54",
+                svgType: "multiplication",
+                solution: "6 × 9 = 54."
+            },
+            {
+                id: 25,
+                type: "input",
+                question: "48 cm : 6 = ..... cm. Số thích hợp điền vào chỗ chấm là:",
+                correct: "8",
+                svgType: "division",
+                solution: "48 : 6 = 8."
+            },
+            {
+                id: 26,
+                type: "mc",
+                question: "Có 24 quả cam chia đều vào 6 đĩa. Hỏi mỗi đĩa có bao nhiêu quả cam?",
+                options: ["3 quả", "4 quả", "5 quả", "6 quả"],
+                correct: "4 quả",
+                svgType: "oranges",
+                solution: "24 : 6 = 4 (quả)."
+            },
+            {
+                id: 27,
+                type: "mc",
+                question: "Mỗi con nhện có 6 cái chân. Hỏi 6 con nhện có tất cả bao nhiêu cái chân?",
+                options: ["12 cái", "30 cái", "36 cái", "42 cái"],
+                correct: "36 cái",
+                svgType: "spider",
+                solution: "6 × 6 = 36 (cái chân)."
+            },
+            {
+                id: 28,
+                type: "mc",
+                question: "Lớp 3A có 30 học sinh xếp thành 6 hàng đều nhau. Hỏi mỗi hàng có bao nhiêu học sinh?",
+                options: ["5 học sinh", "6 học sinh", "4 học sinh", "7 học sinh"],
+                correct: "5 học sinh",
+                svgType: "students",
+                solution: "30 : 6 = 5 (học sinh)."
+            },
+            {
+                id: 29,
+                type: "input",
+                question: "Tính giá trị biểu thức: 60 - 6 × 7 =",
+                correct: "18",
+                svgType: "expression",
+                solution: "60 - 42 = 18."
+            },
+            {
+                id: 30,
+                type: "input",
+                question: "Tính giá trị biểu thức: 36 : 6 + 25 =",
+                correct: "31",
+                svgType: "expression",
+                solution: "6 + 25 = 31."
+            },
+            {
+                id: 31,
+                type: "input",
+                question: "Tìm x, biết: x × 6 = 18 + 12. Giá trị của x là:",
+                correct: "5",
+                svgType: "equation",
+                solution: "x × 6 = 30 => x = 30 : 6 = 5."
+            },
+            {
+                id: 32,
+                type: "input",
+                question: "Một người xếp 42 cái bánh vào các hộp, mỗi hộp chứa 6 cái bánh. Hỏi người đó xếp được bao nhiêu hộp bánh?",
+                correct: "7",
+                svgType: "boxes",
+                solution: "42 : 6 = 7 (hộp)."
+            },
+            {
+                id: 33,
+                type: "input",
+                question: "Một tuần lễ An học 6 buổi. Hỏi trong 8 tuần lễ An học tất cả bao nhiêu buổi?",
+                correct: "48",
+                svgType: "calendar",
+                solution: "6 × 8 = 48 (buổi)."
+            },
+            {
+                id: 34,
+                type: "input",
+                question: "Có 18 <i>l</i> nước mắm chia đều vào 6 chai. Mỗi chai chứa bao nhiêu lít nước mắm?",
+                correct: "3",
+                svgType: "water",
+                solution: "18 : 6 = 3 (lít)."
+            },
+            {
+                id: 35,
+                type: "mc",
+                question: "Kết quả của phép tính nào dưới đây lớn hơn 30?",
+                options: ["6 × 4", "6 × 5", "6 × 6", "36 : 6"],
+                correct: "6 × 6",
+                svgType: "compare",
+                solution: "6 × 6 = 36 lớn hơn 30."
+            },
+            {
+                id: 36,
+                type: "input",
+                question: "Một sợi dây dài 54 cm được cắt thành 6 đoạn bằng nhau. Hỏi mỗi đoạn dây dài bao nhiêu xăng-ti-mét?",
+                correct: "9",
+                svgType: "wire",
+                solution: "54 : 6 = 9 (cm)."
+            },
+            {
+                id: 37,
+                type: "input",
+                question: "Mẹ mua 6 vỉ trứng, mỗi vỉ có 6 quả trứng. Hỏi mẹ mua tất cả bao nhiêu quả trứng?",
+                correct: "36",
+                svgType: "eggs",
+                solution: "6 × 6 = 36 (quả)."
+            },
+            {
+                id: 38,
+                type: "mc",
+                question: "Trong phép tính 6 × 7 = 42, số 42 được gọi là gì?",
+                options: ["Thừa số", "Tổng", "Tích", "Thương"],
+                correct: "Tích",
+                svgType: "multiplication",
+                solution: "Trong phép nhân, kết quả được gọi là tích."
+            },
+            {
+                id: 39,
+                type: "mc",
+                question: "Trong phép tính 12 : 6 = 2, số 2 được gọi là gì?",
+                options: ["Số bị chia", "Số chia", "Thương", "Hiệu"],
+                correct: "Thương",
+                svgType: "division",
+                solution: "Trong phép chia, kết quả được gọi là thương."
+            },
+            {
+                id: 40,
+                type: "truefalse",
+                question: "6 × 2 = 12.",
+                options: ["Đúng", "Sai"],
+                correct: "Đúng",
+                svgType: "truefalse",
+                solution: "6 × 2 = 12. Phát biểu đúng."
+            },
+            {
+                id: 41,
+                type: "truefalse",
+                question: "48 : 6 = 9.",
+                options: ["Đúng", "Sai"],
+                correct: "Sai",
+                svgType: "truefalse",
+                solution: "48 : 6 = 8, không phải 9. Phát biểu sai."
+            },
+            {
+                id: 42,
+                type: "truefalse",
+                question: "0 : 6 = 0.",
+                options: ["Đúng", "Sai"],
+                correct: "Đúng",
+                svgType: "truefalse",
+                solution: "Số 0 chia cho số khác 0 bằng 0. Phát biểu đúng."
+            },
+            {
+                id: 43,
+                type: "truefalse",
+                question: "6 × 3 = 16.",
+                options: ["Đúng", "Sai"],
+                correct: "Sai",
+                svgType: "truefalse",
+                solution: "6 × 3 = 18, không phải 16. Phát biểu sai."
+            },
+            {
+                id: 44,
+                type: "truefalse",
+                question: "30 : 6 = 5.",
+                options: ["Đúng", "Sai"],
+                correct: "Đúng",
+                svgType: "truefalse",
+                solution: "30 : 6 = 5. Phát biểu đúng."
+            },
+            {
+                id: 45,
+                type: "input",
+                question: "6 × 6 = ..... Số thích hợp điền vào chỗ chấm là:",
+                correct: "36",
+                svgType: "multiplication",
+                solution: "6 × 6 = 36."
+            },
+            {
+                id: 46,
+                type: "input",
+                question: "42 : 6 = ..... Số thích hợp điền vào chỗ chấm là:",
+                correct: "7",
+                svgType: "division",
+                solution: "42 : 6 = 7."
+            },
+            {
+                id: 47,
+                type: "input",
+                question: "6 × ..... = 30. Số thích hợp điền vào chỗ chấm là:",
+                correct: "5",
+                svgType: "multiplication",
+                solution: "30 : 6 = 5."
+            }
+        ];
+
+        let shuffledQuestions = [];
+        let userAnswers = {}; 
+        let timerInterval = null;
+        let timeRemaining = 35 * 60; 
+        let startTimeString = "";
+        let submitTimeString = "";
+
+        function shuffleArray(array) {
+            let arr = [...array];
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function getIllustrationSVG(type) {
+            switch(type) {
+                case 'flowers':
+                    return `<svg class="w-16 h-16 mx-auto my-2 text-pink-500" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/></svg>`;
+                case 'boxes':
+                case 'books':
+                    return `<svg class="w-14 h-14 mx-auto my-2 text-norway-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>`;
+                case 'rice':
+                case 'sugar':
+                    return `<svg class="w-14 h-14 mx-auto my-2 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>`;
+                case 'water':
+                    return `<svg class="w-14 h-14 mx-auto my-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>`;
+                case 'spider':
+                case 'chicken':
+                case 'oranges':
+                case 'apples':
+                    return `<svg class="w-14 h-14 mx-auto my-2 text-norway-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>`;
+                default:
+                    return `<svg class="w-12 h-12 mx-auto my-2 text-norway-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>`;
+            }
+        }
+
+        function startQuiz() {
+            shuffledQuestions = shuffleArray(rawQuestions).map(q => {
+                if (q.type === 'mc' || q.type === 'truefalse') {
+                    return { ...q, options: shuffleArray(q.options) };
+                }
+                return q;
+            });
+
+            userAnswers = {};
+            
+            const now = new Date();
+            startTimeString = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            document.getElementById('screen-welcome').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+            document.getElementById('timer-container').classList.remove('hidden');
+            document.getElementById('timer-container').classList.add('flex');
+
+            document.getElementById('total-questions-count').textContent = shuffledQuestions.length;
+
+            renderAllQuestions();
+            startTimer();
+        }
+
+        function startTimer() {
+            const display = document.getElementById('timer-display');
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                let minutes = Math.floor(timeRemaining / 60);
+                let seconds = timeRemaining % 60;
+                display.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
+
+        function renderAllQuestions() {
+            const container = document.getElementById('all-questions-container');
+            container.innerHTML = '';
+
+            shuffledQuestions.forEach((q, idx) => {
+                let optionsHTML = '';
+                if (q.type === 'mc' || q.type === 'truefalse') {
+                    optionsHTML = `<div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">`;
+                    q.options.forEach((opt, optIdx) => {
+                        const isSelected = userAnswers[idx] === opt;
+                        optionsHTML += `
+                            <label class="flex items-center p-3.5 rounded-xl border-2 transition cursor-pointer ${
+                                isSelected 
+                                    ? 'border-norway-600 bg-norway-50 shadow-sm' 
+                                    : 'border-gray-200 hover:border-norway-300 hover:bg-gray-50'
+                            }">
+                                <input type="radio" name="q_${idx}" value="${opt}" ${isSelected ? 'checked' : ''} onchange="saveAnswer(${idx}, '${opt.replace(/'/g, "\\'")}')" class="w-5 h-5 text-norway-600 focus:ring-norway-500 mr-3">
+                                <span class="text-base font-medium text-gray-800">${opt}</span>
+                            </label>
+                        `;
+                    });
+                    optionsHTML += `</div>`;
+                } else if (q.type === 'input') {
+                    const val = userAnswers[idx] || '';
+                    optionsHTML = `
+                        <div class="mt-4 max-w-sm">
+                            <label class="block text-xs font-semibold text-gray-500 mb-1">Nhập đáp án của em:</label>
+                            <input type="text" value="${val}" oninput="saveAnswer(${idx}, this.value)" placeholder="Điền số hoặc kết quả..." class="w-full px-4 py-2.5 rounded-xl border-2 border-gray-300 focus:border-norway-600 focus:ring-0 text-lg font-bold text-norway-800 shadow-inner">
+                        </div>
+                    `;
+                }
+
+                const card = document.createElement('div');
+                card.className = "bg-white rounded-2xl shadow-md p-6 md:p-8 border border-norway-100 fade-in";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between mb-3 border-b border-gray-100 pb-3">
+                        <span class="px-3 py-1 bg-norway-100 text-norway-700 rounded-full text-xs font-bold uppercase tracking-wider">
+                            Câu hỏi số ${idx + 1}
+                        </span>
+                        <span class="text-xs text-gray-400 font-medium">Học sinh: Cẩm Tiên</span>
+                    </div>
+                    <div class="md:flex items-start gap-4">
+                        <div class="flex-shrink-0">
+                            ${getIllustrationSVG(q.svgType)}
+                        </div>
+                        <div class="flex-grow">
+                            <h3 class="text-base md:text-lg font-bold text-gray-800 leading-relaxed">
+                                ${q.question}
+                            </h3>
+                            ${optionsHTML}
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function saveAnswer(idx, val) {
+            userAnswers[idx] = val.trim();
+        }
+
+        function confirmEarlySubmit() {
+            document.getElementById('confirm-modal').classList.remove('hidden');
+        }
+
+        function closeConfirmModal() {
+            document.getElementById('confirm-modal').classList.add('hidden');
+        }
+
+        function submitQuiz() {
+            clearInterval(timerInterval);
+            closeConfirmModal();
+
+            const now = new Date();
+            submitTimeString = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            const totalSeconds = (35 * 60) - timeRemaining;
+            const durMin = Math.floor(totalSeconds / 60);
+            const durSec = totalSeconds % 60;
+            const durationFormatted = `${durMin} phút ${durSec} giây`;
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let historyHTML = '';
+            let detailedResults = [];
+
+            shuffledQuestions.forEach((q, idx) => {
+                const userAns = userAnswers[idx] || "";
+                let isCorrect = false;
+                if (userAns !== "") {
+                    if (q.type === 'input') {
+                        isCorrect = userAns.toLowerCase() === q.correct.toLowerCase();
+                    } else {
+                        isCorrect = userAns === q.correct;
+                    }
+                }
+
+                if (isCorrect) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+
+                detailedResults.push({
+                    cauSo: idx + 1,
+                    noiDungCauHoi: q.question.replace(/<[^>]*>?/gm, ''),
+                    dapAnDung: q.correct,
+                    thiSinhChon: userAns || "(Chưa trả lời)",
+                    dungSai: isCorrect ? "Đúng" : "Sai"
+                });
+
+                historyHTML += `
+                    <div class="p-4 rounded-xl border ${isCorrect ? 'bg-green-50/60 border-green-200' : 'bg-red-50/60 border-red-200'} space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-sm ${isCorrect ? 'text-green-700' : 'text-red-700'}">
+                                Câu ${idx + 1}: ${isCorrect ? '✓ Đúng' : '✕ Sai'}
+                            </span>
+                            <span class="text-xs text-gray-500">Đáp án chuẩn: <strong class="text-gray-800">${q.correct}</strong></span>
+                        </div>
+                        <p class="text-gray-800 font-medium text-sm">${q.question}</p>
+                        <div class="text-xs text-gray-600 bg-white/80 p-2.5 rounded-lg border border-gray-200 space-y-1">
+                            <p><strong>Cẩm Tiên chọn:</strong> <span class="${userAns ? (isCorrect ? 'text-green-600 font-bold' : 'text-red-600 font-bold') : 'text-gray-400 italic'}">${userAns || '(Chưa trả lời)'}</span></p>
+                            <p class="text-gray-500 mt-1"><strong>Lời giải / Giải thích:</strong> ${q.solution}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            const rawScore = (correctCount / shuffledQuestions.length) * 10;
+            const roundedScore = Math.round(rawScore * 2) / 2;
+
+            // Tạo mã bài làm theo yêu cầu: [Tiên] + dãy số ngẫu nhiên
+            const randomCode = Math.floor(100000 + Math.random() * 900000);
+            const maBaiLam = "Tien_" + randomCode;
+            const tenNguoiChoi = "Cẩm Tiên";
+
+            const payload = {
+                maBaiLam: maBaiLam,
+                tenNguoiChoi: tenNguoiChoi,
+                thoiGianVao: startTimeString,
+                thoiGianNop: submitTimeString,
+                diemTungPhan: `${correctCount}/${shuffledQuestions.length} câu đúng`,
+                tongDiem: roundedScore.toFixed(1),
+                chiTietCauHoi: detailedResults
+            };
+
+            // URL Apps Script của bạn đã được tích hợp sẵn ở đây:
+            const scriptURL = 'https://script.google.com/macros/s/AKfycbxLEEWbHB3h47G2FCNotbRE-tCCD3x-zqsFfBpPntoinKk9-Oqvt0wnk48Mff9g_Zku8w/exec';
+            
+            fetch(scriptURL, {
+                method: 'POST',
+                mode: 'no-cors',
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).catch(error => console.error('Lỗi khi lưu lịch sử:', error));
+
+            document.getElementById('final-score-display').textContent = roundedScore.toFixed(1);
+            document.getElementById('stat-correct').textContent = correctCount;
+            document.getElementById('stat-incorrect').textContent = incorrectCount;
+            document.getElementById('stat-starttime').textContent = startTimeString;
+            document.getElementById('stat-duration').textContent = durationFormatted;
+            document.getElementById('history-container').innerHTML = historyHTML;
+
+            document.getElementById('screen-quiz').classList.add('hidden');
+            document.getElementById('timer-container').classList.add('hidden');
+            document.getElementById('screen-result').classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+</body>
+</html>
